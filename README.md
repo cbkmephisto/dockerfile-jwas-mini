@@ -1,6 +1,14 @@
 # Docker image builder for JWAS and XSim on IJulia
 
-2018-05-15 CDT, Hailin Su
+2018-05-16 CDT, Hailin Su
+
+## The `docker` branch of this repo
+
+Difference between the `master` branch:
+- `master` branch is for building the image, while `docker` branch pull the image already built on/from `geyougua/jwas-mini`
+- all scripts from this branch are modified for serving `docker` branch
+- pulling the image is much faster than building it from scratch
+
 
 ## Introduction
 
@@ -11,26 +19,26 @@ This is an alternative version of docker file to build jwas-docker image. This d
 - [Docker](https://www.docker.com/get-docker) service installed and running
 - Familiar with Docker and Docker commands, or please reference to [the original jwas-docker dockerfile](https://github.com/reworkhow/JWAS-Docker)
 
-## Build
-Use the `zzz-build.sh` script to build the image
+## Pull
+Use the `zzz-pull.sh` script to pull the image
 
 ```bash
-bash zzz-build.sh
+bash zzz-pull.sh
 ##### or directly,
-# docker build -t jwas:mini .
+# docker pull geyougua/jwas-mini
 ```
 
 ## Launch
 After the building script, it is recommended to run the image by
 
 ```bash
-docker run -it --rm -p 8008:8008 jwas:mini
+docker run -it --rm -p 8008:8008 geyougua/jwas-mini:latest
 ```
 
 The `-v` option can mount your local working directory into the docker container, please see the [docker help page](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) for more information. The working dir inside the image is `/home/ubuntu`, so after `cd` into your working dir (containing data files) on your local machine or a server,
 
 ```bash
-docker run -it --rm -p 8008:8008 -v `pwd`:/home/ubuntu/work jwas:mini
+docker run -it --rm -p 8008:8008 -v `pwd`:/home/ubuntu/work geyougua/jwas-mini:latest
 ```
 
 This launch command is also provided in the script file `launch_docker_jwas_mini_jupyter_notebook.sh`.
@@ -69,10 +77,10 @@ If you're trying to copy/paste one of the following urls into your browser, reme
 - if launched from a server with IP address `66.66.66.66`
     >http://66.66.66.66:8008/?token=75ad671f75b4c47be70591f46bec604997d8a9bd9dd51f0d
 
-## Iteractive launch and visit
+## Iteractive launching and visiting
 For those who may want to run scripts using linux commands in Bash,
 ```bash
-docker run -it --rm -v `pwd`:/home/ubuntu/work jwas:mini bash
+docker run -it --rm -v `pwd`:/home/ubuntu/work geyougua/jwas-mini:latest bash
 ```
 
 This launch command is also provided in the script file `launch_docker_jwas_mini_CLI.sh`.

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run -it --rm -p 8008:8008 -v `pwd`:/home/ubuntu/work jwas:mini
+docker run -it --rm -p 8008:8008 -v `pwd`:/home/ubuntu/work geyougua/jwas-mini:latest
